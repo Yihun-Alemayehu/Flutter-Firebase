@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_1/screens/addNotes_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -12,7 +13,11 @@ class HomeScreen extends StatelessWidget {
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          showBottomSheet(context: context, builder: (context) {
+            return AddNotesScreen();
+          },);
+        },
         child: const Icon(Icons.add),
       ),
     );
