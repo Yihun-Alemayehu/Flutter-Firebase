@@ -1,24 +1,63 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_1/screens/addNotes_screen.dart';
+import 'package:flutter_firebase_1/services/firestore.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final FirestoreServices firestoreServices = FirestoreServices();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blueAccent,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: const Text('Notes'),
         centerTitle: true,
       ),
-      body: Container(),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: firestoreServices.getNotes(), // Changed to use StreamBuilder
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            // Convert snapshot data to a list of notes
+            List notesList = snapshot.data!.docs;
+            // Return a ListView of notes
+            return ListView.builder(
+              itemCount: notesList.length,
+              itemBuilder: (context, index) {
+                //get each individual doc
+                DocumentSnapshot document = notesList[index];
+                String docID = document.id;
+
+                //get note from each doc
+                Map<String, dynamic> data =
+                    document.data() as Map<String, dynamic>;
+
+                String noteText = data['note'];
+                return ListTile(
+                  title: Text(noteText),
+                  // subtitle: Text(notesList[index]['note']),
+                );
+              },
+            );
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet(
             context: context,
             builder: (context) {
-              return AddNotesScreen();
+              return AddNotesScreen(); // Added unique key to properly rebuild the screen
             },
           );
         },

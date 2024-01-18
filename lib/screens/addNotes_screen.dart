@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_1/services/firestore.dart';
 
 class AddNotesScreen extends StatefulWidget {
   const AddNotesScreen({super.key});
@@ -8,13 +9,15 @@ class AddNotesScreen extends StatefulWidget {
 }
 
 class _AddNotesScreenState extends State<AddNotesScreen> {
-  TextEditingController _controller = TextEditingController();
+  final FirestoreServices firestoreServices = FirestoreServices();
 
-  @override
-  void initState() {
-    _controller = TextEditingController();
-    super.initState();
-  }
+  final TextEditingController _controller = TextEditingController();
+
+  // @override
+  // void initState() {
+  //   _controller = TextEditingController();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,7 @@ class _AddNotesScreenState extends State<AddNotesScreen> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            Text('Add Notes'),
+            const Text('Add Notes'),
             const SizedBox(
               height: 20,
             ),
@@ -50,7 +53,7 @@ class _AddNotesScreenState extends State<AddNotesScreen> {
               ),
               color: Colors.black,
               minWidth: double.infinity,
-              child: Text(
+              child: const Text(
                 'Add',
                 style: TextStyle(
                   color: Colors.white,
@@ -58,7 +61,11 @@ class _AddNotesScreenState extends State<AddNotesScreen> {
                   fontSize: 20,
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                firestoreServices.addNote(_controller.text);
+                _controller.clear();
+                Navigator.of(context).pop();
+              },
             )
           ],
         ),
