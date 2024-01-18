@@ -12,11 +12,15 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Notes'),
         centerTitle: true,
       ),
+      body: Container(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showBottomSheet(context: context, builder: (context) {
-            return AddNotesScreen();
-          },);
+          showModalBottomSheet(
+            context: context,
+            builder: (context) {
+              return AddNotesScreen();
+            },
+          );
         },
         child: const Icon(Icons.add),
       ),

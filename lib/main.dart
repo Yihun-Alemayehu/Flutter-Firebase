@@ -4,9 +4,10 @@ import 'package:flutter_firebase_1/firebase_options.dart';
 import 'package:flutter_firebase_1/screens/home_screen.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-);
+  );
   runApp(const MyApp());
 }
 
