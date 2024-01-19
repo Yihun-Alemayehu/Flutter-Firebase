@@ -28,4 +28,9 @@ class FirestoreServices {
       'timestamp': Timestamp.now(),
     });
   }
+
+  //Delete:
+  Future<void> deleteNotes(String docID) {
+    return notes.doc(docID).delete();
+  }
 }

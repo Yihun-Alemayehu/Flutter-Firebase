@@ -42,19 +42,30 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 String noteText = data['note'];
                 return ListTile(
+                    // leading: ,
                     title: Text(noteText),
-                    trailing: IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  AddNotesScreen(docID: docID),
-                            ));
-                      },
-                      icon: const Icon(
-                        Icons.edit_note,
-                      ),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      AddNotesScreen(docID: docID),
+                                ));
+                          },
+                          icon: const Icon(
+                            Icons.edit_note,
+                          ),
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              firestoreServices.deleteNotes(docID);
+                            },
+                            icon: const Icon(Icons.delete))
+                      ],
                     )
                     // subtitle: Text(notesList[index]['note']),
                     );
