@@ -22,10 +22,10 @@ class FirestoreServices {
   }
 
   //Update:
-  Future<void> updateNotes(String docID ,String newNotes){
+  Future<void> updateNotes(String docID, String newNotes) {
     return notes.doc(docID).update({
-      'notes' : newNotes,
-      'timestamp' : Timestamp.now(),
+      'note': newNotes,
+      'timestamp': Timestamp.now(),
     });
   }
 }

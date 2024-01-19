@@ -45,9 +45,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     title: Text(noteText),
                     trailing: IconButton(
                       onPressed: () {
-                        MaterialPageRoute(
-                          builder: (context) => AddNotesScreen(docID: docID),
-                        );
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  AddNotesScreen(docID: docID),
+                            ));
                       },
                       icon: const Icon(
                         Icons.edit_note,
