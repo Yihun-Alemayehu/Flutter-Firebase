@@ -16,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueAccent,
+      backgroundColor: Colors.blue[100],
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: const Text('Notes'),
@@ -42,9 +42,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
                 String noteText = data['note'];
                 return ListTile(
-                  title: Text(noteText),
-                  // subtitle: Text(notesList[index]['note']),
-                );
+                    title: Text(noteText),
+                    trailing: IconButton(
+                      onPressed: () {
+                        MaterialPageRoute(
+                          builder: (context) => AddNotesScreen(docID: docID),
+                        );
+                      },
+                      icon: const Icon(
+                        Icons.edit_note,
+                      ),
+                    )
+                    // subtitle: Text(notesList[index]['note']),
+                    );
               },
             );
           } else {

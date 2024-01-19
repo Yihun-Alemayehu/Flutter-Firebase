@@ -1,8 +1,14 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:flutter_firebase_1/services/firestore.dart';
 
 class AddNotesScreen extends StatefulWidget {
-  const AddNotesScreen({super.key});
+  String? docID;
+   AddNotesScreen({
+    Key? key,
+    this.docID,
+  }) : super(key: key);
 
   @override
   State<AddNotesScreen> createState() => _AddNotesScreenState();
@@ -13,11 +19,6 @@ class _AddNotesScreenState extends State<AddNotesScreen> {
 
   final TextEditingController _controller = TextEditingController();
 
-  // @override
-  // void initState() {
-  //   _controller = TextEditingController();
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +63,9 @@ class _AddNotesScreenState extends State<AddNotesScreen> {
                 ),
               ),
               onPressed: () {
+                if(docID! == null){
+
+                }
                 firestoreServices.addNote(_controller.text);
                 _controller.clear();
                 Navigator.of(context).pop();
